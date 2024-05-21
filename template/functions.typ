@@ -1,0 +1,39 @@
+// Math functions
+#let iffd = $arrow.double.b.t$
+#let uu = $union$
+#let uud = $union.dot$
+#let nn = $sect$
+#let bs = $without$
+#let ub = $union.big$
+#let sb = $sect.big$
+#let symd = $triangle.t.stroked$
+#let iff = $<=>$
+#let tb(exp, top, bottom) = $attach(limits(#exp), b: #bottom, t: #top)$
+#let bv(f, s) = $#f bar.v_#s$
+#let id(s) = $"id"_#s$
+#let Id(s) = $"Id"_#s$
+#let inv(f) = $#f^(-1)$
+#let Im(f) = $"Im"(#f)$
+#let dom(f) = $"dom"(#f)$
+#let seq = $subset.eq$
+#let suq = $supset.eq$
+#let xx = $times$
+#let A1 = $A_1$
+#let A2 = $A_2$
+#let B1 = $B_1$
+#let B2 = $B_2$
+#let RNN = $RR^+_0$
+#let QED = place(left, dy: -0.2cm, dx: -0.6cm, $qed$)
+#let bar(x) = $overline(#x)$
+#let of = $compose$
+#let pm = $plus.minus$
+#let char(f) = $"char"(#f)$
+#let liminff(x) = $limits(lim)_(n->oo) #x$
+#let limitn = $limits(lim)_(n->oo)$
+#let limto(n) = $limits(lim)_(x->#n)$
+#let limtoc(c, n) = $limits(lim)_(#c -> #n)$
+#let arrl = $arrow.l.double$
+#let an = $a_n$
+#let ank = $a_n_k$
+#let suminf(a,k) = $sum_(#k=1)^oo #a _#k$
+#let arrr = $arrow.r.double$

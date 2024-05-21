@@ -1,0 +1,16 @@
+author: שם הכותב
+author-mail: mail@server.com
+
+# Course Details
+course-name: שם הקורס
+course-number: 0000-0000
+lecturers:
+  # Add more lecturers if necessary
+  - מרצה 1
+semester: א׳ 2024
+
+# Document Style
+block-style: classic # Can be classic or modern
+font: David CLM
+
+print-ver-url: https://test.com/
