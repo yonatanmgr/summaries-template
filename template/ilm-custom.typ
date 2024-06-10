@@ -6,7 +6,11 @@
 #import "/template/utils.typ": *
 #import "@preview/hydra:0.3.0": hydra
 #import "@preview/outrageous:0.1.0"
+#import "@preview/codly:0.2.0": *
+#import "@preview/lovelace:0.2.0": *
 
+// Overwrite the default `smallcaps` and `upper` functions with increased spacing between
+// characters. Default tracking is 0pt.
 #let smallcaps(body) = std-smallcaps(text(tracking: 0.6pt, body))
 #let upper(body) = std-upper(text(tracking: 0.6pt, body))
 
@@ -16,7 +20,7 @@
  
 #let ilm(
   title: [כותרת המסמך],
-  author: "כותב/ת",
+  author: "כותב",
   author-mail: "",
   paper-size: "a4",
   date: none,
@@ -37,7 +41,9 @@
   meta: none,
   body,
 ) = {
+  // set document(title: title, author: author)
   set text(font: meta.global.font, lang: "he", size: 0.97em)
+  set raw(lang: "python")
   show raw: set text(font: ("Iosevka", "Fira Mono"), size: 9pt)
 
   set page(
@@ -48,7 +54,7 @@
     header: locate(loc => {
      let chap = hydra(1, loc: loc)
      let sect = hydra(2, loc: loc)
-     if chap != none [
+     if chap != none and query(heading.where(body: chap.children.slice(2).join())).len() > 0 [
        #link(query(heading.where(body: chap.children.slice(2).join())).first().location())[
          פרק #chap.children.first(): #strong(chap.children.slice(1).join()) 
        ]
@@ -58,6 +64,22 @@
     })
   )
 
+  // Code formatting.
+  show: codly-init.with()
+  let icon(codepoint) = {
+    box(
+      height: 1em,
+      baseline: 0.2em,
+      image(codepoint)
+    )
+    h(0.35em)
+  }
+  codly(languages: (
+    python: (name: "Python", icon: icon("/resources/icons/python.svg"), color: rgb("#FFD343"), ),
+  ), zebra-color: luma(245), stroke-width: 1.5pt, stroke-color: luma(220))
+
+  // Pseudocode formatting.
+  show: setup-lovelace
   set enum(numbering: "(1.א)")
   
   // Cover page.
@@ -66,7 +88,7 @@
       #place(top, float: true)[
         #place(top+left, dx: 100%-550pt, dy: 100%-610pt)[
           #box(width: 700pt, clip: true, height: 500pt)[
-            #image("/resources/cover.png", fit: "cover", )
+            #image(meta.global.cover, fit: "cover", )
           ]
         ]
       ]

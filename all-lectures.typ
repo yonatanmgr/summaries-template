@@ -1,10 +1,10 @@
 #import "/template/template.typ": *
 #show: thmrules
 
-#let lecturers =  if cmeta.lecturers.len() > 1 [*שמות המרצים*] else [*שם המרצה*: #concat_hebrew(cmeta.lecturers)]
-
 #let abst = [
-  #lecturers | *מספר הקורס*: #cmeta.course-number \
+  #if cmeta.lecturers.len() > 1 [*שמות המרצים*] else [*שם המרצה*]: #concat_hebrew(cmeta.lecturers) | *מספר הקורס*: #cmeta.course-number \
+  הוקלד באמצעות #link("https://github.com/typst/typst")[typst] לאורך סמסטר #cmeta.semester.
+  טל"ח.
   #if cmeta.block-style != "classic" and cmeta.keys().contains("print-ver-url") {
     place(left+bottom, dx: -150pt, dy: 60pt)[
       #link(cmeta.print-ver-url)[#underline[גרסה להדפסה]]
@@ -26,11 +26,19 @@
 
 #let start = 1;
 #let end = 1;
-#let skip = ()
+#let skip_lec = ()
+#let skip_rec = ()
 
 #{for num in range(start, end+1) {
-  if not skip.contains(num) {
+  if not skip_lec.contains(num) {
     include "/lectures/lecture_"+zero_pad(num)+".typ"
     pagebreak(weak: true)
+  }
+
+  if cmeta.include-recitations {
+    if not skip_rec.contains(num) {
+      include "/recitations/rec_"+zero_pad(num)+".typ"
+      pagebreak(weak: true)
+    }
   }
 }}
